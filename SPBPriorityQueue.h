@@ -2,6 +2,7 @@
 #define SPBPRIORITYQUEUE_H_
 #include <stdbool.h>
 
+
 /**
  * SP Bounded Priority Queue summary
  *

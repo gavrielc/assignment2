@@ -4,15 +4,24 @@
 #include <assert.h>
 #include <stdlib.h>
 
-/**
- * SP Bounded Priority Queue summary
- *
- * TODO Complete documentation
- */
 #define EMPTY_BPQUEUE_ELEMENT_INDEX -1
 #define EMPTY_BPQUEUE_ELEMENT_VALUE -1
 
-/** type used to define Bounded priority queue **/
+/**
+ * SP Bounded Priority Queue summary
+ *
+ *
+ * TODO Complete documentation
+ */
+
+
+/** type used to define Bounded priority queue
+ *
+ * * size - the numbers of elements in the queue
+ * maxSize - the bound on the number of the elements in the queue
+ * queue - pointer to BPQueueElement with the highest value in the queue
+ *
+ */
 typedef struct sp_bp_queue_t {
 	int size; //the numbers of elements in the queue
 	int maxSize;
@@ -132,13 +141,13 @@ void spBPQueueClear(SPBPQueue* source) {
  * Given the SPBQueue source
 
  * @param source - The source queue
- * @assert (source != NUlL)
+ * @assert(NULL != source)
  *
  * @return
  * The numbers of elements in the queue
  */
 int spBPQueueSize(SPBPQueue* source) {
-	assert(source != NULL);
+	assert(NULL != source);
 	return source->size;
 }
 
@@ -159,7 +168,28 @@ int spBPQueueGetMaxSize(SPBPQueue* source) {
 }
 
 /**
- * TODO Complete documentation
+ * Inserts an element to the queue
+ *
+ * @param source pointer to the queue that we will insert the element to
+ * @param index is the index of the element that we insert
+ * @param value is the value of the element that we insert
+ *
+ * case1 : the queue isn't full
+ * 		- inserts the value and the index after all the values
+ * 		  that with higher value than the new value
+ *
+ * case2 : the queue is full & the value is higher than every value in the queue
+ * 		- nothing happened
+ * case3 : the queue is full & the value is not higher than every value in the queue
+ * 		- follow case1 and remove the element with the highest value
+ *
+ *  * O(size) - complexity
+ *
+ * @return
+ * SP_BPQUEUE_INVALID_ARGUMENT -for NULL pointer or value is negative
+ * SP_BPQUEUE_FULL - the insertion was successful and the queue is full capacity
+ * SP_BPQUEUE_SUCCESS - the insertion was successful
+ *
  */
 SP_BPQUEUE_MSG spBPQueueEnqueue(SPBPQueue* source, int index, double value) {
 	int i = 0;
@@ -178,9 +208,9 @@ SP_BPQUEUE_MSG spBPQueueEnqueue(SPBPQueue* source, int index, double value) {
 		}
 		source->queue[i - 1].index = index;
 		source->queue[i - 1].value = value;
-
 		return SP_BPQUEUE_FULL;
-	} else {
+	}
+	else {
 		for (j = source->size - 1; j >= i; j--) {
 			source->queue[j + 1] = source->queue[j];
 		}
@@ -189,11 +219,11 @@ SP_BPQUEUE_MSG spBPQueueEnqueue(SPBPQueue* source, int index, double value) {
 		source->size++;
 		return SP_BPQUEUE_SUCCESS;
 	}
-
 }
 
 /**
  * TODO Complete documentation
+ * removes the element with the lowest value
  */
 SP_BPQUEUE_MSG spBPQueueDequeue(SPBPQueue* source) {
 	BPQueueElement emptyElement;
@@ -213,6 +243,7 @@ SP_BPQUEUE_MSG spBPQueueDequeue(SPBPQueue* source) {
 
 /**
  * TODO Complete documentation
+ * Returns a copy of the element with the lowest value
  */
 SP_BPQUEUE_MSG spBPQueuePeek(SPBPQueue* source, BPQueueElement* res) {
 	if (NULL == source || NULL == res) {
@@ -228,6 +259,8 @@ SP_BPQUEUE_MSG spBPQueuePeek(SPBPQueue* source, BPQueueElement* res) {
 
 /**
  * TODO Complete documentation
+ * Returns a copy of the element with the highest value
+ *
  */
 SP_BPQUEUE_MSG spBPQueuePeekLast(SPBPQueue* source, BPQueueElement* res) {
 	if (source == NULL) {
@@ -242,7 +275,16 @@ SP_BPQUEUE_MSG spBPQueuePeekLast(SPBPQueue* source, BPQueueElement* res) {
 }
 
 /**
- * TODO Complete documentation
+ * returns the minimum value in the queue
+ *
+ * Given the SPBQueue source
+ *
+ * @param source - The source queue
+ * @assert(NULL != source)
+ *
+ * @return
+ * double - the minimum value in the queue
+ *
  */
 double spBPQueueMinValue(SPBPQueue* source) {
 	assert(source != NULL);
@@ -251,10 +293,17 @@ double spBPQueueMinValue(SPBPQueue* source) {
 }
 
 /**
- * TODO Complete documentation
- */
-/**
- * TODO Complete documentation
+ * checks if the queue is empty
+ *
+ * Given the SPBQueue source
+ *
+ * @param source - The source queue
+ * @assert(NULL != source)
+ *
+ * @return
+ * TRUE - the queue is empty
+ * FALSE - the queue is not empty
+ *
  */
 bool spBPQueueIsEmpty(SPBPQueue* source) {
 	assert(source!=NULL);
@@ -266,7 +315,17 @@ bool spBPQueueIsEmpty(SPBPQueue* source) {
 }
 
 /**
- * TODO Complete documentation
+ * checks if the queue is in full capacity
+ *
+ * Given the SPBQueue source
+ *
+ * @param source - The source queue
+ * @assert(NULL != source)
+ *
+ * @return
+ * TRUE - the queue is in full capacity
+ * FALSE - the queue is not full capacity
+ *
  */
 bool spBPQueueIsFull(SPBPQueue* source) {
 	assert(source!=NULL);
