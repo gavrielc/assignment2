@@ -103,8 +103,11 @@ SP_BPQUEUE_MSG spBPQueueEnqueue(SPBPQueue* source, int index, double value) {
 		}
 	}
 	if (spBPQueueIsFull(source)) {
-		for (j = 0; j < i; j++) {
+		for (j = 0; j < i-1; j++) {
 			source->queue[j] = source->queue[j + 1];
+		}
+		if(i==0){//the queue is full and we trying to insert higher value than all the elements
+			return SP_BPQUEUE_FULL;
 		}
 		source->queue[i - 1].index = index;
 		source->queue[i - 1].value = value;
