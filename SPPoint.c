@@ -5,9 +5,9 @@
  *      Author: gavrielc
  */
 #include "SPPoint.h"
-#include <stdlib.h>
-#include <math.h>
-#include <assert.h>
+#include "stdlib.h"
+#include "math.h"
+#include "assert.h"
 
 struct sp_point_t{
 	int index;
@@ -74,7 +74,7 @@ double spPointL2SquaredDistance(SPPoint* p, SPPoint* q) {
 	double dist = 0;
 	int i;
 	for(i=0; i<p->dim; i++) {
-		dist += pow(p->data[i]-q->data[i], 2);
+		dist += (p->data[i]-q->data[i])*(p->data[i]-q->data[i]);
 	}
 	return dist;
 }
