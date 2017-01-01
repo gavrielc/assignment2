@@ -20,7 +20,7 @@ bool queueBasicCopyTest() {
 
 	myQueue = spBPQueueCreate(maxSize);
 
-	for (int i = 0; i < (sizeof(dataIndex) / sizeof(*dataIndex)); i++) {
+	for (int i = 0; i < (int) (sizeof(dataIndex) / sizeof(*dataIndex)); i++) {
 		spBPQueueEnqueue(myQueue, dataIndex[i], dataValue[i]);
 	}
 
@@ -56,7 +56,7 @@ bool queueBasicBound() {
 
 	myQueue = spBPQueueCreate(maxSize);
 
-	for (int i = 0; i < (sizeof(dataIndex) / sizeof(*dataIndex)); i++) {
+	for (int i = 0; i < (int) (sizeof(dataIndex) / sizeof(*dataIndex)); i++) {
 		spBPQueueEnqueue(myQueue, dataIndex[i], dataValue[i]);
 	}
 
@@ -93,7 +93,7 @@ bool queueBasicClear() {
 
 	myQueue = spBPQueueCreate(maxSize);
 
-	for (int i = 0; i < (sizeof(dataIndex) / sizeof(*dataIndex)); i++) {
+	for (int i = 0; i < (int) (sizeof(dataIndex) / sizeof(*dataIndex)); i++) {
 		spBPQueueEnqueue(myQueue, dataIndex[i], dataValue[i]);
 	}
 
