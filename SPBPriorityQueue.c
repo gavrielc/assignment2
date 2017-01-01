@@ -59,7 +59,7 @@ SPBPQueue* spBPQueueCopy(SPBPQueue* source) {
 void spBPQueueDestroy(SPBPQueue* source) {
 	if (NULL == source)
 		return;
-	free(&(source->queue));
+	free(source->queue);
 	free(source);
 }
 
